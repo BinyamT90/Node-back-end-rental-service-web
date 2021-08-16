@@ -2,11 +2,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var cors = require('cors');
+
+require('./model/db');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+app.use(cors({
+    'allowedHeaders': ['x-access-token','Content-Type'],
+    'origin': ['https://fast-inlet-83724.herokuapp.com','http://localhost:3000'],
+    'credentials': true,
+    'preflightContinue': true
+}));
 
 app.use(logger('dev'));
 app.use(express.json());

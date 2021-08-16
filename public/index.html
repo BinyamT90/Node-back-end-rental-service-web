@@ -1,13 +1,122 @@
 <html>
 
 <head>
-  <title>Express</title>
+  <title>Agenagn</title>
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
-  <h1>Express</h1>
+  <h1>Agenagn</h1>
   <p>Hello world</p>
 </body>
+mongoose = require('mongoose');
+/*fs = require('fs');*/
+/*
+var multer = require('multer');
+var path = require('path');
+const jwt = require('jsonwebtoken');
+
+const dotenv = require('dotenv');*/
+/*const moment = require('moment');*/
+var user = mongoose.model('user');
+var home = mongoose.model('home');
+
+
+var productIdHashed = '';
+
+addhouse = function (req, res) {
+
+home.create({
+/*ownerEmail: docs.email,
+ownerName: docs.name,*/
+location: req.body.params.location,
+bed_room : req.body.params.bedRoom,
+monthly_payment: req.body.params.monthlyPayment,
+floor: req.body.params.floor,
+phone_number: req.body.params.phoneNumber,
+guest_house : req.body.params.guestHouse,
+description : req.body.params.description,
+/*dateCreated: moment()*/
+}, function (err, docs) {
+console.log(docs);
+res.send('meme');
+
+})
+/*dotenv.config();*/
+/*var userToken = req.headers['x-access-token'];
+if (!userToken) return res.send("no token provided");*/
+/*const upload = function (req, res, docs) {
+
+
+};*/
+
+/*const decodedEmail = jwt.verify(userToken, process.env.TOKEN_SECRET, function (err, decoded) {
+if (err) return res.send('Failed to authenticate');
+/!*console.log(decoded);*!/
+return decoded
+});*/
+/*const formatDate = () => {
+let selectedDate = req.body.params.LaunchDate;
+let check = moment(selectedDate);
+var month = check.format('M');
+var day = check.format('D');
+var year = check.format('YYYY');
+/!*console.log(month, day, year);*!/
+let launchDate = {day: day, month: month, year: year};
+return check;
+
+};*/
+/* let today = moment();*/
+/*const reviewStatus = () => {
+let listingStatus = req.body.params.listingStatus;
+switch (listingStatus) {
+case "Draft":
+return "Na";
+case "Submitted":
+return "Pending";
+case "Active":
+return "Approved";
+case "In-active":
+return "pending"
+}
+};*/
+/*user.findOne({/!*email: decodedEmail*!/}, function (err, docs) {
+console.log(docs);
+console.log(req.body.params);
+home.create({
+ownerEmail: docs.email,
+ownerName: docs.name,
+location: req.body.params.location,
+bed_room : req.body.params.bedRoom,
+monthly_payment: req.body.params.monthlyPayment,
+floor: req.body.params.floor,
+phone_number: req.body.params.phoneNumber,
+guest_house : req.body.params.guestHouse,
+description : req.body.params.description,
+dateCreated: moment()
+}, function (err, houseDocs) {
+console.log(houseDocs);
+res.send('meme');
+/!*const encodedId = jwt.sign(`${houseDocs._id}`, process.env.TOKEN_SECRET);*!/
+/!*console.log(houseDocs._id + " This is The ID");*!/
+/!*product.updateOne({_id: houseDocs._id}, {/!*encodedAvatarUrl: encodedId*!/}, function (err, found) {
+if (err) {
+/!*console.log("This is happening " + err)*!/
+}
+productIdHashed = `${houseDocs._id}`;
+
+/!*console.log("found");*!/
+
+
+});*!/
+
+
+/!*console.log("notfound")*!/
+})
+})*/
+
+};
+
+module.exports = addhouse;
 
 </html>
