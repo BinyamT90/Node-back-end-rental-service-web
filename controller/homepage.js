@@ -5,7 +5,7 @@ var home = mongoose.model('home');
 function homepage(req, res) {
 
 
-    home.find({}, function (err, docs) {
+    home.find({ listingStatus: "Active"}, function (err, docs) {
         if (err) {
             console.error(err)
         } else {

@@ -1,5 +1,7 @@
 mongoose = require('mongoose');
 var dbUrl = 'mongodb://localhost/agenagn';
+/*var dbUrl = "mongodb+srv://kalab:kalab.1@cluster0.nifwn.mongodb.net/kiray?retryWrites=true&w=majority";*/
+
 /*
 if (process.env.NODE_ENV === 'production') {
     dbUrl = "mongodb+srv://kalab:kalab.1@cluster0.nifwn.mongodb.net/kiray?retryWrites=true&w=majority";
@@ -19,16 +21,6 @@ mongoose.connection.on('disconnected', function () {
     console.log('Mongoose disconnected');
 });
 
-var houseDetail = mongoose.Schema({
-    place: String,
-    numberOfBedRoom: Number,
-    Flour: Number,
-    monthlyrent: Number,
-    userphonenumber: Number,
-    GuestHouse: {Boolean:false},
-    approval: Boolean,
-
-});
 
 var user = mongoose.Schema({
     name: String,
@@ -47,12 +39,42 @@ var home = mongoose.Schema({
     owner_name: String,
     encodedImageUrl: String,
     ownerEmail: String,
+    editedVersion: Boolean,
+
+    listingStatus: String,
+    reviewStatus : String,
+
+    dateCreated: Date,
+    dateEdited: Date,
+    encodedAvatarUrl: String
+});
+var editHome = mongoose.Schema({
+    originalId : String,
+
+    location: String,
+    bed_room : Number,
+    monthly_payment: Number,
+    floor: Number,
+    phone_number: Number,
+    guest_house : Boolean,
+    description : String,
+    owner_name: String,
+    encodedImageUrl: String,
+    ownerEmail: String,
+
+    listingType: String,
+    listingStatus: String,
+    reviewStatus : String,
+
+    dateCreated: Date,
+    dateEdited: Date,
+    encodedAvatarUrl: String,
 
 });
 
 
-mongoose.model('houseDetail', houseDetail);
 mongoose.model('home', home);
+mongoose.model('editHome', editHome);
 mongoose.model('user', user);
 
 
