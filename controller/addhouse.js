@@ -9,6 +9,7 @@ const dotenv = require('dotenv');
 
 
 var productIdHashed = '';
+var houseOwnerEmail = '';
 
 var user = mongoose.model('user');
 var home = mongoose.model('home');
@@ -21,7 +22,6 @@ module.exports.addNewListing = function (req, res) {
     dotenv.config();
     var userToken = req.headers['x-access-token'];
     if (!userToken) return res.send("no token provided");
-
     const decodedEmail = jwt.verify(userToken, process.env.TOKEN_SECRET, function (err, decoded) {
         if (err) return res.send('Failed to authenticate');
         console.log(decoded);
@@ -42,20 +42,15 @@ module.exports.addNewListing = function (req, res) {
             listingStatus: req.body.params.listingStatus,
             reviewStatus: req.body.params.reviewStatus,
             dateCreated: moment()
+
         }, function (err, houseDocs) {
-            const encodedId = jwt.sign(`${houseDocs._id}`, process.env.TOKEN_SECRET);
-            /*console.log(houseDocs._id + " This is The ID");*/
-            home.updateOne({_id: houseDocs._id}, {encodedImageUrl: encodedId}, function (err, found) {
-                if (err) {
-                    /*console.log("This is happening " + err)*/
-                }
+            if(err){
+                console.log(err);
+            }else {
                 productIdHashed = `${houseDocs._id}`;
-
-                /*console.log("found");*/
-
+                houseOwnerEmail = `${houseDocs.ownerEmail}`;
                 res.send(houseDocs);
-
-            });
+            }
 
 
         })
@@ -124,21 +119,17 @@ module.exports.editHouseUpdate = function (req, res){
                         const encodedId = jwt.sign(`${toBeUpdatedProduct._id}`, process.env.TOKEN_SECRET);
                         console.log(req.body.params.jvPageLink);
                         editHome.updateOne({$or: [{originalId: req.body.params.originalId}, {_id: req.body.params.originalId}]}, {
-                            productName: req.body.params.name,
-                            productDescription: req.body.params.description,
-                            productCategory: req.body.params.category,
-                            productPrice: parseInt(req.body.params.price),
-                            productCommission: parseInt(req.body.params.commission),
-                            productVendorName: req.body.params.vendorName,
-                            productLaunchDate: req.body.params.LaunchDate,
-                            jvPageLink: req.body.params.jvPageLink,
-                            productNetwork: req.body.params.Network,
-                            noteToReviewer: req.body.params.noteToReviewer,
-                            listingType: req.body.params.category,
-
+                            location: req.body.params.location,
+                            bed_room : req.body.params.bedRoom,
+                            monthly_payment: req.body.params.monthlyPayment,
+                            floor: req.body.params.floor,
+                            phone_number: req.body.params.phoneNumber,
+                            guest_house : false,
+                            description : req.body.params.description,
                             listingStatus: req.body.params.listingStatus,
                             reviewStatus: req.body.params.reviewStatus,
                             dateCreated: moment(),
+
                             encodedAvatarUrl: encodedId,
                         }, function (err, productDocs) {
                             productIdHashed = `${toBeUpdatedProduct._id}`;
@@ -161,17 +152,13 @@ module.exports.editHouseUpdate = function (req, res){
 
                         editHome.create({
                             ownerEmail: req.body.params.ownerEmail,
-                            productName: req.body.params.name,
-                            productDescription: req.body.params.description,
-                            productCategory: req.body.params.category,
-                            productPrice: parseInt(req.body.params.price),
-                            productCommission: parseInt(req.body.params.commission),
-                            productVendorName: req.body.params.vendorName,
-                            jvPageLink: req.body.params.jvPageLink,
-                            productLaunchDate: req.body.params.LaunchDate,
-                            productNetwork: req.body.params.Network,
-                            noteToReviewer: req.body.params.noteToReviewer,
-                            listingType: req.body.params.category,
+                            location: req.body.params.location,
+                            bed_room : req.body.params.bedRoom,
+                            monthly_payment: req.body.params.monthlyPayment,
+                            floor: req.body.params.floor,
+                            phone_number: req.body.params.phoneNumber,
+                            guest_house : false,
+                            description : req.body.params.description,
                             listingStatus: req.body.params.listingStatus,
                             reviewStatus: req.body.params.reviewStatus,
                             originalId: req.body.params.originalId,
@@ -218,7 +205,7 @@ module.exports.editHouseUpdate = function (req, res){
                                         console.error(err)
                                     } else {
                                         /*console.log("Successfully Updated and other");*/
-                                        res.send("User Updated")
+                                        res.send("User Updated four")
 
                                     }
                                 })
@@ -240,22 +227,17 @@ module.exports.editHouseUpdate = function (req, res){
 
                         /*if (!isTheSame(toBeUpdatedProduct, editedFields)) {*/
                         home.updateOne({_id: toBeUpdatedProduct.originalId}, {
-                            productName: req.body.params.name,
-                            productDescription: req.body.params.description,
-                            productCategory: req.body.params.category,
-                            productPrice: parseInt(req.body.params.price),
-                            productCommission: parseInt(req.body.params.commission),
-                            productVendorName: req.body.params.vendorName,
-                            jvPageLink: req.body.params.jvPageLink,
-                            productLaunchDate: req.body.params.LaunchDate,
-                            productNetwork: req.body.params.Network,
-                            noteToReviewer: req.body.params.noteToReviewer,
-                            listingType: req.body.params.category,
-
+                            location: req.body.params.location,
+                            bed_room : req.body.params.bedRoom,
+                            monthly_payment: req.body.params.monthlyPayment,
+                            floor: req.body.params.floor,
+                            phone_number: req.body.params.phoneNumber,
+                            guest_house : false,
+                            description : req.body.params.description,
                             listingStatus: req.body.params.listingStatus,
                             reviewStatus: req.body.params.reviewStatus,
-                            originalId: req.body.params.originalId,
-                            editedVersion: false,
+                            dateCreated: moment(),
+                            editedVersion: false
 
                         }, function (err, versionChangedDocument) {
                             /*console.log(toBeUpdatedProduct, +'way' + versionChangedDocument);*/
@@ -264,7 +246,7 @@ module.exports.editHouseUpdate = function (req, res){
                                     console.error(err)
                                 } else {
                                     /*console.log("Successfully Updated");*/
-                                    res.send("User Updated")
+                                    res.send("User Updated three")
                                 }
                             })
                         });
@@ -281,22 +263,17 @@ module.exports.editHouseUpdate = function (req, res){
                         };*/
 
                         home.findOneAndUpdate({_id: req.body.params.originalId}, {
-                            productName: req.body.params.name,
-                            productDescription: req.body.params.description,
-                            productCategory: req.body.params.category,
-                            productPrice: parseInt(req.body.params.price),
-                            productCommission: parseInt(req.body.params.commission),
-                            productVendorName: req.body.params.vendorName,
-                            jvPageLink: req.body.params.jvPageLink,
-                            productLaunchDate: req.body.params.LaunchDate,
-                            productNetwork: req.body.params.Network,
-                            noteToReviewer: req.body.params.noteToReviewer,
-                            listingType: req.body.params.category,
-
+                            location: req.body.params.location,
+                            bed_room : req.body.params.bedRoom,
+                            monthly_payment: req.body.params.monthlyPayment,
+                            floor: req.body.params.floor,
+                            phone_number: req.body.params.phoneNumber,
+                            guest_house : false,
+                            description : req.body.params.description,
                             listingStatus: req.body.params.listingStatus,
                             reviewStatus: req.body.params.reviewStatus,
-                            originalId: req.body.params.originalId,
                             dateCreated: moment(),
+                            originalId: req.body.params.originalId,
                         }, function (err, updatedDocument) {
                             if (err) {
                                 console.error(err)
@@ -304,7 +281,7 @@ module.exports.editHouseUpdate = function (req, res){
                                 /*console.log("Update on the Product DB");*/
                                 productIdHashed = `${req.body.params.originalId}`;
 
-                                res.send("User Updated")
+                                res.send("User Updated two")
 
                             }
                         })
@@ -323,7 +300,7 @@ module.exports.editHouseUpdate = function (req, res){
                         listingStatus: req.body.params.listingStatus
                     }, function (err, versionChangedDocument) {
                         /*console.log(versionChangedDocument);*/
-                        res.send("User Updated")
+                        res.send("User Updated one")
 
                     });
                 }
@@ -340,22 +317,16 @@ module.exports.editHouseUpdate = function (req, res){
 module.exports.uploadProductImage = function (req, res) {
 
     var i = 0;
-    console.log('what');
-    const encodedId = jwt.sign(productIdHashed, process.env.TOKEN_SECRET);
-    console.log(process.env.TOKEN_SECRET, encodedId);
-
     var storage = multer.diskStorage({
 
-
-        destination: './public/images/products/',
+        destination: './public/images/products/' + houseOwnerEmail + '/' + productIdHashed,
         filename: function (req, file, cb) {
 
             // cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
             i = i + 1;
-            /*console.log(path.extname(file.originalname));*/
+            console.log(path.extname(file.originalname));
+            cb(null, i + path.extname(file.originalname));
 
-            /*cb(null, i + path.extname(file.originalname));*/
-            cb(null, encodedId + path.extname((file.originalname)))
 
         }
     });
@@ -364,23 +335,32 @@ module.exports.uploadProductImage = function (req, res) {
         i: 2,
         storage: storage,
         limits: {fileSize: 10000000},
+        fileFilter: function (req, file, cb) {
+            checkFileType(file, cb);
+        },
 
+    }).array('files[]', 8);
 
-    }).single('file');
-
+    function checkFileType(file, cb) {
+        const filetypes = /jpeg|jpg|png|gif/;
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = filetypes.test(file.mimetype);
+        if (mimetype && extname) {
+            return cb(null, true);
+        } else {
+            cb('Error: Images Only')
+        }
+    }
 
     upload(req, res, function (err) {
         if (err) {
-            /*console.log("error");*/
-            /*console.log(err);*/
+            console.log(err);
         } else {
-            /*console.log(req.file);*/
-            /*console.log("File has been uploaded");*/
+            console.log(req.file);
 
-            res.send("Success");
+            res.send('Success');
         }
-    });
-
+    })
 };
 
 

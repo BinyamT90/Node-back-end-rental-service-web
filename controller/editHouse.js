@@ -11,7 +11,6 @@ var home = mongoose.model('home');
 var editHome = mongoose.model('editHome');
 
 function editHouse (req, res) {
-    console.log('here');
     dotenv.config();
     var userToken = req.headers['x-access-token'];
     if (!userToken) return res.send("no token provided");

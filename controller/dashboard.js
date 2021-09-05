@@ -19,7 +19,7 @@ function dashboard(req, res) {
     //check if the email is admin's email.
     console.log(decodedEmail);
     const filterBasedOn = (condition) => {
-        home.find({editedVersion: true, reviewStatus: condition}, function (err, homeDocs) {
+        home.find({editedVersion: false, reviewStatus: condition}, function (err, homeDocs) {
             if (err) {
                 console.error(err)
             } else {
@@ -51,6 +51,7 @@ function dashboard(req, res) {
                     if (err) {
                         console.error(err)
                     } else {
+
                         editHome.find({listingStatus: {$ne: 'Draft'}}, function (err, editedDocumentDocs) {
                             if (err) {
                                 console.error(err)
@@ -115,13 +116,7 @@ function dashboard(req, res) {
                     }
                 });
 
-                /*home.find().collation({locale: "en"}).sort({homeName: 'asc', _id: 1}).exec(function (err, docs) {
-                    res.send(docs);
-                });*/
-                /* home.find({},null, {collation:{locale:"en"},sort:{homeName:'desc'}},function (err, docs) {
-                     console.log(docs);
-                     res.send(docs);
-                 });*/
+
                 break;
             case"Approved":
                 filterBasedOn("Approved");
@@ -193,7 +188,7 @@ function dashboard(req, res) {
             if (err) {
                 console.error(err)
             } else {
-                home.find({ownerEmail: decodedEmail}, function (err, homeDocs) {
+                home.find({ownerEmail: decodedEmail, editedVersion: false}, function (err, homeDocs) {
                     if (err) {
                         console.error(err)
                     } else {

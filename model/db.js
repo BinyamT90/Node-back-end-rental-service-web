@@ -39,7 +39,8 @@ var home = mongoose.Schema({
     owner_name: String,
     encodedImageUrl: String,
     ownerEmail: String,
-    editedVersion: Boolean,
+    availabilityDate:Date,
+    editedVersion: {type:Boolean, default:false},
 
     listingStatus: String,
     reviewStatus : String,
@@ -61,6 +62,7 @@ var editHome = mongoose.Schema({
     owner_name: String,
     encodedImageUrl: String,
     ownerEmail: String,
+    availabilityDate:Date,
 
     listingType: String,
     listingStatus: String,

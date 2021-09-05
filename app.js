@@ -13,7 +13,7 @@ var app = express();
 
 app.use(cors({
     'allowedHeaders': ['x-access-token','Content-Type'],
-    'origin': ['https://fast-inlet-83724.herokuapp.com','http://localhost:3000'],
+    'origin': ['https://fast-inlet-83724.herokuapp.com','http://localhost:3000', 'http://192.168.1.101:3000'],
     'credentials': true,
     'preflightContinue': true
 }));
