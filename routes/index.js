@@ -4,6 +4,7 @@ mongoose = require('mongoose');
 search = require('../controller/search');
 homepage = require('../controller/homepage');
 detail = require('../controller/detail');
+adminDetail = require('../controller/adminDetail');
 signup = require('../controller/signup');
 loginUser = require('../controller/login');
 addhouse = require('../controller/addhouse');
@@ -20,6 +21,7 @@ router.get('/', function(req, res, next) {
 router.get('/search', search);
 router.get('/homepage', homepage);
 router.get('/detail', detail);
+router.get('/adminDetail', adminDetail);
 router.post('/loginUser', loginUser);
 router.post('/signUpUser', signup);
 router.post('/addhouse', addhouse.addNewListing);

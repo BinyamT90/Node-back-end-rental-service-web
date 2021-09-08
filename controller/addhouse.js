@@ -33,6 +33,7 @@ module.exports.addNewListing = function (req, res) {
             ownerEmail: docs.email,
             ownerName: docs.name,
             location: req.body.params.location,
+            squareMeter: req.body.params.squareMeter,
             bed_room : req.body.params.bedRoom,
             monthly_payment: req.body.params.monthlyPayment,
             floor: req.body.params.floor,
@@ -120,6 +121,7 @@ module.exports.editHouseUpdate = function (req, res){
                         console.log(req.body.params.jvPageLink);
                         editHome.updateOne({$or: [{originalId: req.body.params.originalId}, {_id: req.body.params.originalId}]}, {
                             location: req.body.params.location,
+                            squareMeter: req.body.params.squareMeter,
                             bed_room : req.body.params.bedRoom,
                             monthly_payment: req.body.params.monthlyPayment,
                             floor: req.body.params.floor,
@@ -153,6 +155,7 @@ module.exports.editHouseUpdate = function (req, res){
                         editHome.create({
                             ownerEmail: req.body.params.ownerEmail,
                             location: req.body.params.location,
+                            squareMeter: req.body.params.squareMeter,
                             bed_room : req.body.params.bedRoom,
                             monthly_payment: req.body.params.monthlyPayment,
                             floor: req.body.params.floor,
@@ -228,6 +231,7 @@ module.exports.editHouseUpdate = function (req, res){
                         /*if (!isTheSame(toBeUpdatedProduct, editedFields)) {*/
                         home.updateOne({_id: toBeUpdatedProduct.originalId}, {
                             location: req.body.params.location,
+                            squareMeter: req.body.params.squareMeter,
                             bed_room : req.body.params.bedRoom,
                             monthly_payment: req.body.params.monthlyPayment,
                             floor: req.body.params.floor,
@@ -264,6 +268,7 @@ module.exports.editHouseUpdate = function (req, res){
 
                         home.findOneAndUpdate({_id: req.body.params.originalId}, {
                             location: req.body.params.location,
+                            squareMeter: req.body.params.squareMeter,
                             bed_room : req.body.params.bedRoom,
                             monthly_payment: req.body.params.monthlyPayment,
                             floor: req.body.params.floor,
