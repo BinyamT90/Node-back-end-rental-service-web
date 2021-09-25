@@ -10,10 +10,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
-
 app.use(cors({
     'allowedHeaders': ['x-access-token','Content-Type'],
-    'origin': ['https://fast-inlet-83724.herokuapp.com','http://localhost:3000', 'http://192.168.1.101:3000'],
+    'origin':"*",
     'credentials': true,
     'preflightContinue': true
 }));
@@ -24,6 +23,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/*app.use(express.static(path.join(__dirname, 'build')));
+
+
+app.get('/!*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});*/
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
