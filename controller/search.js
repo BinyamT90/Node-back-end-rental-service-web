@@ -22,7 +22,6 @@ function search(req, res) {
 
         }
     };
-
     const bedroom = function (room) {
         switch (parseInt(room)) {
             case 0:
