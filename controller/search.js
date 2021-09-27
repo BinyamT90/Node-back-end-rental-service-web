@@ -22,7 +22,6 @@ function search(req, res) {
 
         }
     };
-
     const bedroom = function (room) {
         switch (parseInt(room)) {
             case 0:
@@ -49,7 +48,7 @@ function search(req, res) {
     /*{$or: req.query.bedroom !== undefined ? req.query.bedroom.map((room) => bedroom(room)) : [{bed_room: {$lt: 6}}]},*/
     console.log(req.query.guestHouse, 'guest');
     home.find({
-        listingStatus: "Active",
+        reviewStatus: "Approved",
         location: {$regex: keyword},
         $and: [
             {$or: req.query.payment !== undefined ? req.query.payment !== null ? req.query.payment.map((que) => payment(que)) : [{monthly_payment: {$gt: 10}}] : [{monthly_payment: {$gt: 10}}]},

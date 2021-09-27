@@ -11,6 +11,8 @@ addhouse = require('../controller/addhouse');
 editHouse = require('../controller/editHouse');
 dashboard = require('../controller/dashboard');
 
+resetPassword = require('../controller/resetPassword');
+
 adminChangeStatus = require('../controller/adminChangeStatus');
 
 /* GET home page. */
@@ -29,6 +31,14 @@ router.post('/uploadHouseImage', addhouse.uploadProductImage);
 router.post('/editHouseUpdate', addhouse.editHouseUpdate);
 router.get('/edithouse', editHouse);
 router.get('/dashboard', dashboard);
+
+
+
+router.post('/resetpassword', resetPassword.resetPassword);
+router.post('/resetpasswordtoken', resetPassword.resetPasswordToken);
+router.post('/changePassword', resetPassword.changePassword);
+
+
 
 router.post('/changeHomeStatus', adminChangeStatus);
 

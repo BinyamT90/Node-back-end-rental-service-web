@@ -26,7 +26,9 @@ var user = mongoose.Schema({
     name: String,
     email: String,
     password: String,
-    confirmPassword: String
+    confirmPassword: String,
+    resetPasswordToken:String,
+    resetPasswordExpires:Date,
 });
 var home = mongoose.Schema({
     location: String,
