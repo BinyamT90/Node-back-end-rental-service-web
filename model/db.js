@@ -77,8 +77,17 @@ var editHome = mongoose.Schema({
 });
 
 
+// Create schema
+const feedback = mongoose.Schema({
+    email: String,
+    feed: String
+});
+
+
+
 mongoose.model('home', home);
 mongoose.model('editHome', editHome);
+mongoose.model('feedback', feedback);
 mongoose.model('user', user);
 
 

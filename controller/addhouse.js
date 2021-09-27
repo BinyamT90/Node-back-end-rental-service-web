@@ -356,7 +356,6 @@ module.exports.uploadProductImage = function (req, res) {
             cb('Error: Images Only')
         }
     }
-
     upload(req, res, function (err) {
         if (err) {
             console.log(err);

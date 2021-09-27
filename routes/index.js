@@ -10,6 +10,7 @@ loginUser = require('../controller/login');
 addhouse = require('../controller/addhouse');
 editHouse = require('../controller/editHouse');
 dashboard = require('../controller/dashboard');
+feed=require('../controller/feedback');
 
 adminChangeStatus = require('../controller/adminChangeStatus');
 
@@ -18,6 +19,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.post('/feedback', feed.addNewFeedback);
 router.get('/search', search);
 router.get('/homepage', homepage);
 router.get('/detail', detail);
